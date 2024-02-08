@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\PmDeal;
 use App\Models\PmDealProgress;
+use App\Models\PmPipeline;
 use App\Models\Company;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -34,8 +35,8 @@ class PmDealRepository
                 'deal_description' => 'required',
                 'deal_owner' => 'required',
                 'deal_value' => 'required',
-                // 'pipeline_id' => 'required',
-                // 'stage_id' => 'required'
+                'pipeline_id' => 'required',
+                'stage_id' => 'required'
             ]);
             if ($v->fails()) {
                 return response()->json(['error' => $v->errors()->first()]);
@@ -46,7 +47,7 @@ class PmDealRepository
                 return response()->json(['error' => 'Company not found']);
             }
 
-            $PmPipeline = PmPipeline::find($PmPipelineId);
+            $PmPipeline = PmPipeline::find($data['pipeline_id']);
             if (!$PmPipeline) {
                 return response()->json(['error' => 'Pipeline not found']);
             }
@@ -67,16 +68,17 @@ class PmDealRepository
             $PmDeal->deal_value = $data['deal_value'];
             $PmDeal->save();
 
-            // if(!$data['id']){
-            //     $PmDealProgress = new PmDealProgress();
-            //     $PmDealProgress->company_id = $company->id;
-            //     $PmDealProgress->pipeline_id = $data['pipeline_id'];
-            //     $PmDealProgress->stage_id = $data['stage_id'];
-            //     $PmDealProgress->deal_id = $data['id'];
-            //     $PmDealProgress->save();
-            // }
+            if(!$data['id']){
+                $PmDealProgress = new PmDealProgress();
+                $PmDealProgress->company_id = $company->id;
+                $PmDealProgress->pipeline_id = $data['pipeline_id'];
+                $PmDealProgress->stage_id = $data['stage_id'];
+                $PmDealProgress->deal_id = $PmDeal->id;
+
+                $PmDealProgress->save();
+            }
     
-            // DB::commit();
+            DB::commit();
 
             return response()->json(['message' => 'created successfully', $PmDeal]);
     
