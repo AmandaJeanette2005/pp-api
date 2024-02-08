@@ -21,9 +21,9 @@ class PmDealController extends Controller
         return response()->json($this->PmDealRepo->index($filters, $request->header('company_id')));
     }
 
-    public function saveDeal(Request $request){
+    public function save(Request $request){
  
-        return response()->json($this->PmDealRepo->saveDeal($request->all(), $request->header('company_id')));
+        return response()->json($this->PmDealRepo->save($request->all(), $request->header('company_id')));
 
     }
 

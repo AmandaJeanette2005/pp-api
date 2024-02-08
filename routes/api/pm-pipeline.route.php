@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'pipeline', "middleware" => "checkCompanyId"], function () {
     Route::get('/', [PipelineController::class, 'index']);
-    Route::post('/save', [PipelineController::class, 'save']);
+    Route::post('/', [PipelineController::class, 'save']);
     Route::delete('/{id?}/delete', [PipelineController::class, 'delete']);
 
         Route::group(['prefix' => 'type', "middleware" => "checkCompanyId"], function () {
@@ -26,7 +26,7 @@ Route::group(['prefix' => 'pipeline', "middleware" => "checkCompanyId"], functio
 
         Route::group(['prefix' => 'deal', "middleware" => "checkCompanyId"], function () {
             Route::get('/', [PmDealController::class, 'index']);
-            Route::post('/saveDeal', [PmDealController::class, 'saveDeal']);
+            Route::post('/', [PmDealController::class, 'save']);
             Route::delete('/{id?}/delete', [PmDealController::class, 'delete']);
 
         });

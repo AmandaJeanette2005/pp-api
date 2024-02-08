@@ -24,7 +24,7 @@ class PmDealRepository
     }
 
 
-    public function saveDeal($data, $companyId)
+    public function save($data, $companyId)
     {
         try {
             DB::beginTransaction();
