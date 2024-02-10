@@ -12,7 +12,7 @@ class PipelineRepository
 {
     public function indexPipeline($filters, $companyId)
     {
-        $pipeline = PmPipeline::with([]);
+        $pipeline = PmPipeline::with(['pm_type']);
         if (!empty($filters['pipeline_title'])) {
             $pipeline = $pipeline->where('pipeline_title', 'LIKE', '%' . $filters['pipeline_title'] . '%');
         }

@@ -18,4 +18,14 @@ class PmDealProgress extends Model
     protected $table = 'pm_deal_progress';
     protected $guarded = [];
 
+    public function pm_pipeline(){
+        return $this->hasOne(PmPipeline::class, 'id', 'pipeline_id');
+    }
+    public function pm_stage(){
+        return $this->hasOne(PmStage::class, 'id', 'stage_id');
+    }
+    public function pm_deal(){
+        return $this->hasOne(PmDeal::class, 'id', 'deal_id');
+    }
+
 }

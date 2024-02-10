@@ -18,4 +18,8 @@ class PmDeal extends Model
     protected $table = 'pm_deals';
     protected $guarded = [];
 
+    public function pm_type(){
+        return $this->hasOne(PmType::class, 'id', 'pm_type_id');
+    }
+
 }
